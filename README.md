@@ -1,14 +1,12 @@
 # ⚽ PitchPulse AI: Premier League Match Intelligence & Tactical Copilot
 
-> **Submitted to:** Inside the Game: Developer Hackathon (Hosted by Microsoft & the Premier League)  
-> **Prize Pool:** $50,000 USD  
-> **Tech Stack:** Microsoft Azure AI Services, GitHub Copilot, Python FastAPI / Standard Library HTTP, Tailwind CSS, Spatial IoT Telemetry.
+> Real-time match intelligence, spatial telemetry, and AI-powered tactical analytics for Premier League matches.
 
 ---
 
-## 🏆 Executive Summary
+## 🏆 Overview
 
-**PitchPulse AI** is a real-time match intelligence and tactical copilot platform designed for broadcasters, managers, and football fans worldwide. By fusing live spatial telemetry, Expected Goals (xG) analytics, and generative AI powered by Microsoft’s cloud ecosystem, PitchPulse AI turns raw Premier League match data into instant tactical insights, automated stories, and multi-language fan experiences.
+**PitchPulse AI** is an advanced real-time match intelligence and tactical copilot platform designed for broadcasters, managers, and football fans worldwide. By fusing live spatial telemetry, Expected Goals (xG) analytics, and generative AI, PitchPulse AI turns raw match data into instant tactical insights, automated match stories, and multi-language fan experiences.
 
 ---
 
@@ -16,14 +14,14 @@
 
 1. **Real-Time Match Intelligence & Telemetry:**
    - Live minute-by-minute match feed tracking possession, Expected Goals (xG), shot maps, and tactical heatmaps.
-   - Spatial tracking of key players (Saka, Haaland, Ødegaard, De Bruyne) across tactical zones.
+   - Spatial tracking of key players across tactical zones.
 
 2. **AI Tactical Copilot:**
    - Real-time LLM agent analysis of defensive blocks, half-space overloads, and pressing intensity.
    - Actionable tactical recommendations for managers and broadcasters.
 
 3. **Automated Match Stories & Recaps:**
-   - One-click professional sports journalism generation summarizing key turning points, goals, and title race implications.
+   - One-click professional sports journalism generation summarizing key turning points and goals.
 
 4. **Multi-Language Fan Experience:**
    - Instant translation of tactical insights and live commentary into Tamil (தமிழ்), Spanish (Español), French (Français), and English for global streaming audiences.
@@ -32,9 +30,8 @@
 
 ## 🛠️ Architecture & Tech Stack
 
-- **Backend:** Lightweight Python server (`server.py`) acting as a secure gateway to OmniRoute & Microsoft Azure AI endpoints.
+- **Backend:** Lightweight Python server (`server.py`) acting as a secure gateway to AI completion endpoints.
 - **Frontend:** Modern responsive dashboard built with Tailwind CSS, Lucide icons, and real-time polling.
-- **Integration:** GitHub Copilot assisted development & Azure cloud-native analytics readiness.
 
 ---
 
