@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PitchPulse AI — Premier League Match Intelligence & Tactical Copilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pl: { purple: '#38003c', cyan: '#00ff87', pink: '#ff2882', dark: '#121214', card: '#1a1a1e', border: '#2d2d35' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .pulse-live { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    </style>
+</head>
+<body class="bg-pl-dark text-gray-100 min-h-screen flex flex-col selection:bg-pl-cyan selection:text-black">
+
+    <!-- Top Navigation -->
+    <header class="bg-pl-purple border-b border-pl-border sticky top-0 z-50 px-6 py-4 flex items-center justify-between shadow-xl">
+        <div class="flex items-center space-x-4">
+            <div class="bg-pl-cyan text-black font-extrabold px-3 py-1.5 rounded-lg text-sm tracking-wide shadow-md flex items-center space-x-1.5">
+                <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+                <span>MICROSOFT HACKATHON ENTRY</span>
+            </div>
+            <div>
+                <h1 class="text-xl font-extrabold tracking-tight flex items-center space-x-2">
+                    <span>PitchPulse AI</span>
+                    <span class="text-xs bg-pl-pink/20 text-pl-pink px-2 py-0.5 rounded border border-pl-pink/30 font-semibold">Live Match Intelligence</span>
+                </h1>
+                <p class="text-xs text-gray-400">Premier League & Microsoft "Inside the Game" Developer Hackathon</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <!-- Language Selector -->
+            <div class="flex items-center space-x-2 bg-pl-card border border-pl-border px-3 py-1.5 rounded-lg text-sm">
+                <i data-lucide="globe" class="w-4 h-4 text-pl-cyan"></i>
+                <select id="langSelect" class="bg-transparent text-gray-200 outline-none cursor-pointer font-medium">
+                    <option value="English" class="bg-pl-card">English (Global)</option>
+                    <option value="Tamil" class="bg-pl-card">தமிழ் (Tamil)</option>
+                    <option value="Spanish" class="bg-pl-card">Español</option>
+                    <option value="French" class="bg-pl-card">Français</option>
+                </select>
+            </div>
+
+            <!-- Live Status -->
+            <div class="flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-lg">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 pulse-live"></span>
+                <span id="matchMinute" class="text-xs font-bold text-emerald-400 tracking-wider">MIN 74'</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- LEFT COLUMN: Match Telemetry & Pitch (7 Cols) -->
+        <div class="lg:col-span-7 space-y-6">
+
+            <!-- Scoreboard Card -->
+            <div class="bg-pl-card border border-pl-border rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-pl-cyan/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex justify-between items-center text-xs text-gray-400 mb-4 font-semibold uppercase tracking-wider">
+                    <span id="competitionName">Premier League Matchweek 29</span>
+                    <span id="venueName">Emirates Stadium, London</span>
+                </div>
+
+                <div class="grid grid-cols-7 items-center text-center my-6">
+                    <div class="col-span-3">
+                        <div class="text-2xl font-black text-white">Arsenal</div>
+                        <div class="text-xs text-gray-400 mt-1">4-3-3 (Arteta)</div>
+                    </div>
+                    <div class="col-span-1 flex flex-col items-center justify-center">
+                        <div class="text-3xl font-black bg-gradient-to-r from-pl-cyan to-pl-pink bg-clip-text text-transparent px-3 py-1">
+                            <span id="homeScore">2</span> - <span id="awayScore">1</span>
+                        </div>
+                        <span class="text-[10px] text-gray-400 mt-0.5 uppercase tracking-widest font-bold">Live</span>
+                    </div>
+                    <div class="col-span-3">
+                        <div class="text-2xl font-black text-white">Man City</div>
+                        <div class="text-xs text-gray-400 mt-1">3-2-4-1 (Guardiola)</div>
+                    </div>
+                </div>
+
+                <!-- Match Stats Bars -->
+                <div class="space-y-3 pt-4 border-t border-pl-border text-sm">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1 text-gray-300">
+                            <span>Possession: <strong id="homePoss">49%</strong></span>
+                            <span>Possession: <strong id="awayPoss">51%</strong></span>
+                        </div>
+                        <div class="w-full bg-pl-border h-2 rounded-full overflow-hidden flex">
+                            <div id="homePossBar" class="bg-pl-cyan h-full transition-all duration-500" style="width: 49%"></div>
+                            <div id="awayPossBar" class="bg-pl-pink h-full transition-all duration-500" style="width: 51%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1 text-gray-300">
+                            <span>Expected Goals (xG): <strong id="homeXg">2.14</strong></span>
+                            <span>Expected Goals (xG): <strong id="awayXg">1.85</strong></span>
+                        </div>
+                        <div class="w-full bg-pl-border h-2 rounded-full overflow-hidden flex">
+                            <div id="homeXgBar" class="bg-blue-400 h-full transition-all duration-500" style="width: 54%"></div>
+                            <div id="awayXgBar" class="bg-purple-400 h-full transition-all duration-500" style="width: 46%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Pitch Visualizer & Tactical Zones -->
+            <div class="bg-pl-card border border-pl-border rounded-2xl p-6 shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold flex items-center space-x-2">
+                        <i data-lucide="layout-grid" class="w-5 h-5 text-pl-cyan"></i>
+                        <span>Live Pitch Telemetry & Heatmap</span>
+                    </h2>
+                    <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded font-semibold">Azure IoT & Spatial Tracking</span>
+                </div>
+
+                <!-- Canvas Pitch -->
+                <div class="relative w-full h-64 bg-emerald-950/40 rounded-xl border border-emerald-500/30 overflow-hidden flex items-center justify-center">
+                    <!-- Pitch Markings SVG -->
+                    <svg class="absolute inset-w-full inset-h-full w-full h-full opacity-40 pointer-events-none" viewBox="0 0 600 300" fill="none" stroke="#10b981" stroke-width="2">
+                        <rect x="20" y="20" width="560" height="260" rx="4"/>
+                        <line x1="300" y1="20" x2="300" y2="280"/>
+                        <circle cx="300" cy="150" r="50"/>
+                        <rect x="20" y="80" width="80" height="140"/>
+                        <rect x="500" y="80" width="80" height="140"/>
+                    </svg>
+
+                    <!-- Tactical Heatmap Overlay / Player Nodes -->
+                    <div id="pitchOverlay" class="absolute inset-0 flex items-center justify-between px-12 py-8">
+                        <div class="space-y-4">
+                            <div class="bg-pl-cyan/80 text-black text-[10px] font-bold px-2 py-1 rounded shadow animate-bounce">Saka (7) [xG 0.74]</div>
+                            <div class="bg-pl-cyan/80 text-black text-[10px] font-bold px-2 py-1 rounded">Ødegaard (8)</div>
+                        </div>
+                        <div class="bg-yellow-400/95 text-black text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg">⚽ Ball at Min <span id="ballMin">74'</span> (Half-space Overload)</div>
+                        <div class="space-y-4">
+                            <div class="bg-pl-pink/80 text-white text-[10px] font-bold px-2 py-1 rounded">Haaland (9) [xG 0.88]</div>
+                            <div class="bg-pl-pink/80 text-white text-[10px] font-bold px-2 py-1 rounded">De Bruyne (17)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Match Events Timeline -->
+            <div class="bg-pl-card border border-pl-border rounded-2xl p-6 shadow-xl">
+                <h3 class="text-md font-bold mb-4 flex items-center space-x-2">
+                    <i data-lucide="clock" class="w-4 h-4 text-pl-cyan"></i>
+                    <span>Real-Time Match Event Stream</span>
+                </h3>
+                <div id="eventStream" class="space-y-3 text-sm">
+                    <div class="flex items-start space-x-3 p-3 bg-pl-dark/60 rounded-xl border border-pl-border">
+                        <span class="bg-pl-pink/20 text-pl-pink font-bold px-2 py-0.5 rounded text-xs">72'</span>
+                        <div>
+                            <strong class="text-white">Goal! Man City (Erling Haaland)</strong>
+                            <p class="text-xs text-gray-400 mt-0.5">Left-footed bullet into bottom corner from De Bruyne assist (xG 0.62).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 p-3 bg-pl-dark/60 rounded-xl border border-pl-border">
+                        <span class="bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded text-xs">65'</span>
+                        <div>
+                            <strong class="text-white">Yellow Card: Arsenal (Declan Rice)</strong>
+                            <p class="text-xs text-gray-400 mt-0.5">Tactical foul stopping Rodri counter-attack.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 p-3 bg-pl-dark/60 rounded-xl border border-pl-border">
+                        <span class="bg-pl-cyan/20 text-pl-cyan font-bold px-2 py-0.5 rounded text-xs">58'</span>
+                        <div>
+                            <strong class="text-white">Goal! Arsenal (Bukayo Saka)</strong>
+                            <p class="text-xs text-gray-400 mt-0.5">Curling effort from edge of box following high press turnover.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: AI Tactical Copilot & Recaps (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+
+            <!-- AI Tactical Copilot Card -->
+            <div class="bg-gradient-to-br from-pl-card to-pl-purple/40 border border-pl-cyan/30 rounded-2xl p-6 shadow-2xl relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold flex items-center space-x-2">
+                        <i data-lucide="cpu" class="w-5 h-5 text-pl-cyan"></i>
+                        <span>AI Tactical Copilot</span>
+                    </h2>
+                    <button onclick="loadTacticalAnalysis()" id="tacticsBtn" class="bg-pl-cyan hover:bg-emerald-400 text-black font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center space-x-1 shadow-lg">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>Analyze Tactics</span>
+                    </button>
+                </div>
+                <div id="tacticsOutput" class="text-sm text-gray-300 space-y-3 leading-relaxed bg-pl-dark/80 p-4 rounded-xl border border-pl-border">
+                    <p class="text-gray-400 italic">Click "Analyze Tactics" to invoke the AI tactical agent powered by Microsoft Azure AI & OmniRoute...</p>
+                </div>
+            </div>
+
+            <!-- Automated Match Story & Highlights -->
+            <div class="bg-pl-card border border-pl-border rounded-2xl p-6 shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold flex items-center space-x-2">
+                        <i data-lucide="file-text" class="w-5 h-5 text-pl-pink"></i>
+                        <span>Automated Match Story</span>
+                    </h2>
+                    <button onclick="loadMatchRecap()" id="recapBtn" class="bg-pl-pink hover:bg-pink-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center space-x-1 shadow-lg">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        <span>Generate Recap</span>
+                    </button>
+                </div>
+                <div id="recapOutput" class="text-sm text-gray-300 space-y-3 leading-relaxed bg-pl-dark/80 p-4 rounded-xl border border-pl-border">
+                    <p class="text-gray-400 italic">Click "Generate Recap" to produce an automated professional sports journalism report...</p>
+                </div>
+            </div>
+
+            <!-- Interactive Fan Copilot QA -->
+            <div class="bg-pl-card border border-pl-border rounded-2xl p-6 shadow-xl">
+                <h3 class="text-md font-bold mb-3 flex items-center space-x-2">
+                    <i data-lucide="message-square" class="w-4 h-4 text-pl-cyan"></i>
+                    <span>Ask Fan & Broadcaster Copilot</span>
+                </h3>
+                <div class="space-y-3">
+                    <input type="text" id="fanQuery" placeholder="e.g., Why is Arsenal's mid-block succeeding against De Bruyne?" class="w-full bg-pl-dark border border-pl-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pl-cyan">
+                    <button onclick="askFanCopilot()" class="w-full bg-gradient-to-r from-pl-cyan to-emerald-400 text-black font-bold py-2.5 rounded-xl text-sm transition shadow-lg hover:opacity-90">
+                        Ask AI Copilot
+                    </button>
+                    <div id="fanAnswer" class="text-xs text-gray-300 bg-pl-dark/80 p-3 rounded-xl border border-pl-border hidden"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pl-card border-t border-pl-border py-6 text-center text-xs text-gray-400">
+        <p>Built with ❤️ for the <strong class="text-white">Inside the Game: Developer Hackathon</strong> (Microsoft & Premier League) • $50,000 USD Prize Pool</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        async function fetchMatchStatus() {
+            try {
+                const res = await fetch('/api/match/status');
+                const data = await res.json();
+                document.getElementById('matchMinute').innerText = `MIN ${data.minute}'`;
+                document.getElementById('ballMin').innerText = `${data.minute}'`;
+                document.getElementById('homeScore').innerText = data.score.home;
+                document.getElementById('awayScore').innerText = data.score.away;
+                document.getElementById('homePoss').innerText = data.stats.possession.home + '%';
+                document.getElementById('awayPoss').innerText = data.stats.possession.away + '%';
+                document.getElementById('homePossBar').style.width = data.stats.possession.home + '%';
+                document.getElementById('awayPossBar').style.width = data.stats.possession.away + '%';
+                document.getElementById('homeXg').innerText = data.stats.xG.home;
+                document.getElementById('awayXg').innerText = data.stats.xG.away;
+            } catch (e) {
+                console.error("Status fetch error", e);
+            }
+        }
+
+        async function loadTacticalAnalysis() {
+            const btn = document.getElementById('tacticsBtn');
+            const output = document.getElementById('tacticsOutput');
+            const lang = document.getElementById('langSelect').value;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Analyzing...</span>`;
+            lucide.createIcons();
+
+            try {
+                const res = await fetch('/api/ai/tactics', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ lang, message: "Provide tactical breakdown." })
+                });
+                const data = await res.json();
+                output.innerHTML = `<div class="whitespace-pre-line">${data.result}</div>`;
+            } catch (e) {
+                output.innerText = "Error connecting to AI tactical agent.";
+            } finally {
+                btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i><span>Analyze Tactics</span>`;
+                lucide.createIcons();
+            }
+        }
+
+        async function loadMatchRecap() {
+            const btn = document.getElementById('recapBtn');
+            const output = document.getElementById('recapOutput');
+            const lang = document.getElementById('langSelect').value;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Generating...</span>`;
+            lucide.createIcons();
+
+            try {
+                const res = await fetch('/api/ai/recap', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ lang, message: "Generate match recap story." })
+                });
+                const data = await res.json();
+                output.innerHTML = `<div class="whitespace-pre-line">${data.result}</div>`;
+            } catch (e) {
+                output.innerText = "Error generating recap.";
+            } finally {
+                btn.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i><span>Generate Recap</span>`;
+                lucide.createIcons();
+            }
+        }
+
+        async function askFanCopilot() {
+            const q = document.getElementById('fanQuery').value;
+            const ansBox = document.getElementById('fanAnswer');
+            if (!q) return;
+            ansBox.classList.remove('hidden');
+            ansBox.innerText = "Consulting AI Tactical Copilot...";
+            const lang = document.getElementById('langSelect').value;
+
+            try {
+                const res = await fetch('/api/ai/tactics', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ lang, message: q })
+                });
+                const data = await res.json();
+                ansBox.innerHTML = `<strong>AI Copilot Answer:</strong><p class="mt-1">${data.result}</p>`;
+            } catch (e) {
+                ansBox.innerText = "Failed to fetch answer.";
+            }
+        }
+
+        // Poll match status every 5 seconds
+        setInterval(fetchMatchStatus, 5000);
+        fetchMatchStatus();
+    </script>
+</body>
+</html>
