@@ -122,6 +122,8 @@ def get_match_status_data():
 
 def handle_ai_request(path, body_data):
     action = path.split("/")[-1]
+    lang = body_data.get("lang", "English")
+    
     prompt_map = {
         "tactics": (
             "You are PitchPulse AI, an advanced Premier League tactical analyst powered by Advanced AI & OmniRoute. "
@@ -133,12 +135,13 @@ def handle_ai_request(path, body_data):
             "match telemetry provided, highlighting key goals and tactical turning points."
         ),
         "translate": (
-            f"Translate the following football tactical analysis into fluent {body_data.get('lang', 'Tamil')} for global fan streaming: "
+            f"Translate the following football tactical analysis into fluent {lang} for global fan streaming: "
             f"\"{body_data.get('text', 'Team maintaining strong defensive block in 4-3-3. Opponent increasing half-space pressure.')}\""
         )
     }
 
     system_prompt = prompt_map.get(action, "You are a Premier League AI tactical assistant.")
+    system_prompt += f" IMPORTANT: You must write and output your ENTIRE response in fluent {lang} language."
     user_message = body_data.get("message", "Analyze current match state.")
 
     payload = {
@@ -166,9 +169,22 @@ def handle_ai_request(path, body_data):
             content = resp_data["choices"][0]["message"]["content"]
             return {"status": "success", "result": content, "model": AGENT_MODEL}
     except Exception as e:
+        if lang == "Tamil":
+            fb_tactics = "1. அழுத்தம் (Pressing): கட்டுப்படுத்தப்பட்ட தற்காப்பு வியூகம்.\n2. இடைவெளிகள் (Overloads): ஹாப்-ஸ்பேஸ் தாக்குதல்கள்.\n3. மாற்றம் (Adjustment): எதிர்-தாக்குதல்களைத் தடுத்தல்."
+            fb_recap = "பரபரப்பான பிரிமியர் லீக் கால்பந்து போட்டியில் இரு அணிகளும் சிறந்த வியூகங்களை வெளிப்படுத்தின."
+        elif lang == "Spanish":
+            fb_tactics = "1. Intensidad de presión: Bloque medio disciplinado.\n2. Sobrecargas: Uso de espacios intermedios.\n3. Ajuste: Defensa en transición."
+            fb_recap = "En un encuentro muy disputado de la Premier League, ambos equipos demostraron solidez táctica."
+        elif lang == "French":
+            fb_tactics = "1. Intensité du pressing: Bloc médian discipliné.\n2. Surcharge: Utilisation des demi-espaces.\n3. Ajustement: Transition défensive."
+            fb_recap = "Dans un match intense de Premier League, les deux équipes ont fait preuve de discipline tactique."
+        else:
+            fb_tactics = "1. Pressing Intensity: Disciplined mid-block active.\n2. Overloads: Half-space utilization.\n3. Adjustment: Transition defense focus."
+            fb_recap = "In an intensely contested Premier League fixture, both sides demonstrated tactical discipline and relentless pressing."
+
         fallbacks = {
-            "tactics": "1. Pressing Intensity: Disciplined mid-block active.\n2. Overloads: Half-space utilization.\n3. Adjustment: Transition defense focus.",
-            "recap": "In an intensely contested Premier League fixture, both sides demonstrated tactical discipline and relentless pressing."
+            "tactics": fb_tactics,
+            "recap": fb_recap
         }
         return {"status": "success", "result": fallbacks.get(action, "Analysis complete."), "note": str(e)}
 
