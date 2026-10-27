@@ -32,8 +32,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: 'Outfit', sans-serif; background-color: #07070c; background-image: radial-gradient(circle at 50% 0%, rgba(56, 0, 60, 0.25) 0%, transparent 50%), radial-gradient(circle at 90% 90%, rgba(0, 255, 135, 0.05) 0%, transparent 40%); }
-        .glass-panel { background: rgba(16, 16, 24, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.07); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
-        .glass-panel-glow { background: rgba(16, 16, 24, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(0, 255, 135, 0.3); box-shadow: 0 0 40px rgba(0, 255, 135, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+        .glass-panel { background: rgba(16, 16, 24, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.07); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
+        .glass-panel-glow { background: rgba(16, 16, 24, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(0, 255, 135, 0.3); box-shadow: 0 0 40px rgba(0, 255, 135, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
         .pulse-live { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.92); } }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -45,27 +45,27 @@
 <body class="text-gray-100 min-h-screen flex flex-col selection:bg-pl-cyan selection:text-black">
 
     <!-- Top Navigation -->
-    <header class="bg-pl-purpleDark/95 border-b border-pl-border backdrop-blur-2xl sticky top-0 z-50 px-8 py-4 flex items-center justify-between shadow-2xl">
-        <div class="flex items-center space-x-4">
-            <div class="flex items-center space-x-3.5">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pl-cyan via-emerald-400 to-pl-accent flex items-center justify-center shadow-xl shadow-pl-cyan/20">
-                    <i data-lucide="shield-alert" class="w-6 h-6 text-black stroke-[2.5]"></i>
+    <header class="bg-pl-purpleDark/95 border-b border-pl-border backdrop-blur-2xl sticky top-0 z-50 px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-2xl">
+        <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-pl-cyan via-emerald-400 to-pl-accent flex items-center justify-center shadow-xl shadow-pl-cyan/20">
+                    <i data-lucide="shield-alert" class="w-5 h-5 sm:w-6 sm:h-6 text-black stroke-[2.5]"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black tracking-tight flex items-center space-x-2">
+                    <h1 class="text-lg sm:text-xl font-black tracking-tight flex items-center space-x-2">
                         <span class="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">PITCHPULSE</span>
-                        <span class="text-pl-cyan font-black tracking-widest text-sm bg-pl-cyan/10 px-2 py-0.5 rounded border border-pl-cyan/20">AI v2.5</span>
+                        <span class="text-pl-cyan font-black tracking-widest text-xs sm:text-sm bg-pl-cyan/10 px-2 py-0.5 rounded border border-pl-cyan/20">AI</span>
                     </h1>
-                    <p class="text-[11px] text-gray-400 font-medium tracking-wide">Elite Match Intelligence & Tactical Command Center</p>
+                    <p class="text-[10px] sm:text-[11px] text-gray-400 font-medium tracking-wide">Elite Match Intelligence & Tactical Command Center</p>
                 </div>
             </div>
         </div>
 
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
             <!-- Language Selector -->
-            <div class="flex items-center space-x-2 glass-panel px-3.5 py-2 rounded-2xl text-xs font-semibold shadow-inner">
-                <i data-lucide="globe" class="w-4 h-4 text-pl-cyan"></i>
-                <select id="langSelect" class="bg-transparent text-gray-200 outline-none cursor-pointer font-semibold">
+            <div class="flex items-center space-x-2 glass-panel px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl sm:rounded-2xl text-xs font-semibold shadow-inner">
+                <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-pl-cyan"></i>
+                <select id="langSelect" class="bg-transparent text-gray-200 outline-none cursor-pointer font-semibold text-xs sm:text-sm">
                     <option value="English" class="bg-pl-card">English (Global)</option>
                     <option value="Tamil" class="bg-pl-card">தமிழ் (Tamil)</option>
                     <option value="Spanish" class="bg-pl-card">Español</option>
@@ -74,91 +74,81 @@
             </div>
 
             <!-- Live Status Badge -->
-            <div class="flex items-center space-x-2.5 bg-pl-cyan/10 border border-pl-cyan/30 px-4 py-2 rounded-2xl shadow-lg shadow-pl-cyan/5">
-                <span class="w-3 h-3 rounded-full bg-pl-cyan pulse-live shadow-lg shadow-pl-cyan"></span>
+            <div class="flex items-center space-x-2 bg-pl-cyan/10 border border-pl-cyan/30 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl shadow-lg shadow-pl-cyan/5">
+                <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-pl-cyan pulse-live shadow-lg shadow-pl-cyan"></span>
                 <span id="matchMinute" class="text-xs font-black text-pl-cyan tracking-wider">MIN 74'</span>
             </div>
         </div>
     </header>
 
     <!-- Main Content Grid -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
 
         <!-- LEFT COLUMN: Match Telemetry & Pitch (7 Cols) -->
-        <div class="lg:col-span-7 space-y-8">
+        <div class="lg:col-span-7 space-y-6 lg:space-y-8">
 
             <!-- Scoreboard Card -->
-            <div class="glass-panel-glow rounded-3xl p-8 relative overflow-hidden">
+            <div class="glass-panel-glow rounded-2xl sm:rounded-3xl p-4 sm:p-8 relative overflow-hidden">
                 <!-- Ambient Glows -->
                 <div class="absolute -top-32 -right-32 w-80 h-80 bg-pl-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-pl-pink/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                <div class="flex justify-between items-center text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs text-gray-400 mb-6 gap-2 font-semibold uppercase tracking-wider">
                     <span id="competitionName" class="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-xl border border-white/5">
                         <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i>
-                        <span>Premier League Matchweek 29</span>
+                        <span>Premier League Match</span>
                     </span>
                     <span id="venueName" class="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-xl border border-white/5">
                         <i data-lucide="map-pin" class="w-4 h-4 text-pl-cyan"></i>
-                        <span>Emirates Stadium, London</span>
+                        <span>Stadium</span>
                     </span>
                 </div>
 
                 <!-- Teams & Score Grid -->
-                <div class="grid grid-cols-7 items-center text-center my-6">
-                    <div class="col-span-3 text-left pl-4">
-                        <div class="text-3xl font-black text-white tracking-tight flex items-center space-x-2">
-                            <span>Arsenal</span>
-                        </div>
-                        <div class="text-xs text-pl-cyan font-bold mt-1.5 flex items-center space-x-1.5 bg-pl-cyan/10 w-fit px-2.5 py-1 rounded-lg border border-pl-cyan/20">
-                            <i data-lucide="shield" class="w-3.5 h-3.5"></i>
-                            <span>4-3-3 (Mikel Arteta)</span>
+                <div class="grid grid-cols-7 items-center text-center my-4 sm:my-6">
+                    <div class="col-span-3 text-left pl-2 sm:pl-4">
+                        <div class="text-lg sm:text-2xl lg:text-3xl font-black text-white tracking-tight truncate">Arsenal</div>
+                        <div class="text-[10px] sm:text-xs text-pl-cyan font-bold mt-1 flex items-center space-x-1 bg-pl-cyan/10 w-fit px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-pl-cyan/20">
+                            <i data-lucide="shield" class="w-3 h-3"></i>
+                            <span class="truncate">4-3-3</span>
                         </div>
                     </div>
                     <div class="col-span-1 flex flex-col items-center justify-center">
-                        <div class="text-5xl font-black tracking-tighter bg-gradient-to-r from-pl-cyan via-white to-pl-pink bg-clip-text text-transparent px-3 py-1 drop-shadow-2xl">
+                        <div class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tighter bg-gradient-to-r from-pl-cyan via-white to-pl-pink bg-clip-text text-transparent px-2 py-1 drop-shadow-2xl">
                             <span id="homeScore">2</span>:<span id="awayScore">1</span>
                         </div>
-                        <span class="text-[10px] text-pl-cyan font-black tracking-widest mt-1.5 bg-pl-cyan/15 px-2.5 py-0.5 rounded-full border border-pl-cyan/30 animate-pulse">LIVE STREAM</span>
+                        <span class="text-[9px] sm:text-[10px] text-pl-cyan font-black tracking-widest mt-1 bg-pl-cyan/15 px-2 py-0.5 rounded-full border border-pl-cyan/30 animate-pulse">LIVE</span>
                     </div>
-                    <div class="col-span-3 text-right pr-4">
-                        <div class="text-3xl font-black text-white tracking-tight flex items-center justify-end space-x-2">
-                            <span>Man City</span>
-                        </div>
-                        <div class="text-xs text-pl-pink font-bold mt-1.5 flex items-center justify-end space-x-1.5 bg-pl-pink/10 w-fit ml-auto px-2.5 py-1 rounded-lg border border-pl-pink/20">
-                            <span>3-2-4-1 (Pep Guardiola)</span>
-                            <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                    <div class="col-span-3 text-right pr-2 sm:pr-4">
+                        <div class="text-lg sm:text-2xl lg:text-3xl font-black text-white tracking-tight truncate">Man City</div>
+                        <div class="text-[10px] sm:text-xs text-pl-pink font-bold mt-1 flex items-center justify-end space-x-1 bg-pl-pink/10 w-fit ml-auto px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-pl-pink/20">
+                            <span class="truncate">3-2-4-1</span>
+                            <i data-lucide="shield" class="w-3 h-3"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Momentum & Stats Bars -->
-                <div class="space-y-5 pt-6 border-t border-pl-border/80 text-sm">
+                <div class="space-y-4 sm:space-y-5 pt-5 sm:pt-6 border-t border-pl-border/80 text-xs sm:text-sm">
                     <div>
-                        <div class="flex justify-between text-xs font-bold mb-2 text-gray-300">
-                            <span>Possession: <strong id="homePoss" class="text-white text-sm">49%</strong></span>
-                            <span class="text-gray-500 font-black uppercase tracking-widest text-[10px] flex items-center space-x-1">
-                                <i data-lucide="activity" class="w-3 h-3 text-pl-cyan"></i>
-                                <span>Match Possession</span>
-                            </span>
-                            <span>Possession: <strong id="awayPoss" class="text-white text-sm">51%</strong></span>
+                        <div class="flex justify-between font-bold mb-2 text-gray-300">
+                            <span>Poss.: <strong id="homePoss" class="text-white">49%</strong></span>
+                            <span class="text-gray-500 font-black uppercase tracking-widest text-[9px] sm:text-[10px]">Possession</span>
+                            <span>Poss.: <strong id="awayPoss" class="text-white">51%</strong></span>
                         </div>
-                        <div class="w-full bg-pl-dark h-3 rounded-full overflow-hidden flex p-0.5 shadow-inner border border-pl-border">
+                        <div class="w-full bg-pl-dark h-2.5 sm:h-3 rounded-full overflow-hidden flex p-0.5 shadow-inner border border-pl-border">
                             <div id="homePossBar" class="bg-gradient-to-r from-emerald-500 to-pl-cyan h-full rounded-l-full transition-all duration-700 shadow-md" style="width: 49%"></div>
                             <div id="awayPossBar" class="bg-gradient-to-r from-pl-pink to-rose-500 h-full rounded-r-full transition-all duration-700 shadow-md" style="width: 51%"></div>
                         </div>
                     </div>
 
                     <div>
-                        <div class="flex justify-between text-xs font-bold mb-2 text-gray-300">
-                            <span>Expected Goals (xG): <strong id="homeXg" class="text-white text-sm">2.14</strong></span>
-                            <span class="text-gray-500 font-black uppercase tracking-widest text-[10px] flex items-center space-x-1">
-                                <i data-lucide="target" class="w-3 h-3 text-cyan-400"></i>
-                                <span>Expected Goals (xG)</span>
-                            </span>
-                            <span>Expected Goals (xG): <strong id="awayXg" class="text-white text-sm">1.85</strong></span>
+                        <div class="flex justify-between font-bold mb-2 text-gray-300">
+                            <span>xG: <strong id="homeXg" class="text-white">2.14</strong></span>
+                            <span class="text-gray-500 font-black uppercase tracking-widest text-[9px] sm:text-[10px]">Expected Goals (xG)</span>
+                            <span>xG: <strong id="awayXg" class="text-white">1.85</strong></span>
                         </div>
-                        <div class="w-full bg-pl-dark h-3 rounded-full overflow-hidden flex p-0.5 shadow-inner border border-pl-border">
+                        <div class="w-full bg-pl-dark h-2.5 sm:h-3 rounded-full overflow-hidden flex p-0.5 shadow-inner border border-pl-border">
                             <div id="homeXgBar" class="bg-gradient-to-r from-blue-600 to-cyan-400 h-full rounded-l-full transition-all duration-700 shadow-md" style="width: 54%"></div>
                             <div id="awayXgBar" class="bg-gradient-to-r from-purple-600 to-indigo-400 h-full rounded-r-full transition-all duration-700 shadow-md" style="width: 46%"></div>
                         </div>
@@ -167,20 +157,20 @@
             </div>
 
             <!-- Spatial Telemetry & Tactical Radar -->
-            <div class="glass-panel rounded-3xl p-6 relative overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-base font-bold flex items-center space-x-2">
-                        <i data-lucide="radar" class="w-5 h-5 text-pl-cyan"></i>
+            <div class="glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative overflow-hidden">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                    <h2 class="text-sm sm:text-base font-bold flex items-center space-x-2">
+                        <i data-lucide="radar" class="w-4 h-4 sm:w-5 sm:h-5 text-pl-cyan"></i>
                         <span>Spatial Telemetry & Tactical Radar</span>
                     </h2>
-                    <span class="text-xs bg-pl-cyan/10 text-pl-cyan border border-pl-cyan/25 px-3 py-1.5 rounded-xl font-extrabold flex items-center space-x-1.5">
-                        <span class="w-2.5 h-2.5 rounded-full bg-pl-cyan animate-ping"></span>
-                        <span>IoT Tracking Active</span>
+                    <span class="text-[10px] sm:text-xs bg-pl-cyan/10 text-pl-cyan border border-pl-cyan/25 px-2.5 py-1 rounded-xl font-extrabold flex items-center space-x-1.5">
+                        <span class="w-2 h-2 rounded-full bg-pl-cyan animate-ping"></span>
+                        <span>IoT Active</span>
                     </span>
                 </div>
 
                 <!-- Canvas Pitch -->
-                <div class="relative w-full h-72 bg-gradient-to-b from-emerald-950/70 via-gray-950 to-gray-950 rounded-2xl border border-emerald-500/30 overflow-hidden flex items-center justify-center shadow-2xl">
+                <div class="relative w-full h-60 sm:h-72 bg-gradient-to-b from-emerald-950/70 via-gray-950 to-gray-950 rounded-2xl border border-emerald-500/30 overflow-hidden flex items-center justify-center shadow-2xl">
                     <!-- Pitch Markings SVG -->
                     <svg class="absolute inset-0 w-full h-full opacity-40 pointer-events-none" viewBox="0 0 600 300" fill="none" stroke="#34d399" stroke-width="2">
                         <rect x="25" y="25" width="550" height="250" rx="8"/>
@@ -192,55 +182,55 @@
                     </svg>
 
                     <!-- Tactical Heatmap & Player Nodes -->
-                    <div id="pitchOverlay" class="absolute inset-0 flex items-center justify-between px-12 py-8">
-                        <div class="space-y-3.5">
-                            <div class="bg-pl-cyan text-black text-xs font-black px-3 py-1.5 rounded-xl shadow-xl flex items-center space-x-1.5 transform hover:scale-105 transition">
-                                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-                                <span>Saka (7) [xG 0.74]</span>
+                    <div id="pitchOverlay" class="absolute inset-0 flex items-center justify-between px-4 sm:px-12 py-6 sm:py-8">
+                        <div class="space-y-2 sm:space-y-3.5">
+                            <div class="bg-pl-cyan text-black text-[10px] sm:text-xs font-black px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow-xl flex items-center space-x-1">
+                                <i data-lucide="zap" class="w-3 h-3"></i>
+                                <span>Saka (7)</span>
                             </div>
-                            <div class="bg-pl-card/95 border border-pl-border text-gray-200 text-xs font-bold px-3 py-1.5 rounded-xl shadow">Ødegaard (8)</div>
+                            <div class="bg-pl-card/95 border border-pl-border text-gray-200 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow">Ødegaard</div>
                         </div>
-                        <div class="bg-amber-400 text-black text-xs font-black px-4 py-2.5 rounded-2xl shadow-2xl flex items-center space-x-2 animate-bounce">
-                            <span class="w-2.5 h-2.5 rounded-full bg-black"></span>
-                            <span>Ball at Min <span id="ballMin">74'</span> (Half-space Overload)</span>
+                        <div class="bg-amber-400 text-black text-[10px] sm:text-xs font-black px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl shadow-2xl flex items-center space-x-1.5 animate-bounce text-center">
+                            <span class="w-2 h-2 rounded-full bg-black"></span>
+                            <span>Min <span id="ballMin">74'</span> (Overload)</span>
                         </div>
-                        <div class="space-y-3.5 text-right">
-                            <div class="bg-pl-pink text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-xl flex items-center space-x-1.5 transform hover:scale-105 transition">
-                                <span>Haaland (9) [xG 0.88]</span>
-                                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                        <div class="space-y-2 sm:space-y-3.5 text-right">
+                            <div class="bg-pl-pink text-white text-[10px] sm:text-xs font-black px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow-xl flex items-center space-x-1">
+                                <span>Haaland (9)</span>
+                                <i data-lucide="zap" class="w-3 h-3"></i>
                             </div>
-                            <div class="bg-pl-card/95 border border-pl-border text-gray-200 text-xs font-bold px-3 py-1.5 rounded-xl shadow">De Bruyne (17)</div>
+                            <div class="bg-pl-card/95 border border-pl-border text-gray-200 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow">De Bruyne</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Real-Time Match Event Stream -->
-            <div class="glass-panel rounded-3xl p-6">
-                <h3 class="text-base font-bold mb-4 flex items-center space-x-2">
-                    <i data-lucide="activity" class="w-5 h-5 text-pl-cyan"></i>
+            <div class="glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+                <h3 class="text-sm sm:text-base font-bold mb-4 flex items-center space-x-2">
+                    <i data-lucide="activity" class="w-4 h-4 sm:w-5 sm:h-5 text-pl-cyan"></i>
                     <span>Real-Time Match Event Stream</span>
                 </h3>
-                <div id="eventStream" class="space-y-3.5 text-sm custom-scrollbar max-h-72 overflow-y-auto pr-2">
-                    <div class="flex items-start space-x-3.5 p-4 bg-pl-card/90 rounded-2xl border border-pl-border hover:border-pl-cyan/40 transition shadow-md">
-                        <span class="bg-pl-pink/20 text-pl-pink font-black px-3 py-1 rounded-xl text-xs">72'</span>
+                <div id="eventStream" class="space-y-3 text-sm custom-scrollbar max-h-64 sm:max-h-72 overflow-y-auto pr-1">
+                    <div class="flex items-start space-x-3 p-3.5 bg-pl-card/90 rounded-2xl border border-pl-border hover:border-pl-cyan/40 transition shadow-md">
+                        <span class="bg-pl-pink/20 text-pl-pink font-black px-2.5 py-1 rounded-xl text-xs">72'</span>
                         <div>
-                            <strong class="text-white tracking-wide text-sm">Goal! Man City (Erling Haaland)</strong>
-                            <p class="text-xs text-gray-400 mt-1">Left-footed bullet into bottom corner from De Bruyne assist (xG 0.62).</p>
+                            <strong class="text-white tracking-wide text-xs sm:text-sm">Goal! Man City (Erling Haaland)</strong>
+                            <p class="text-[11px] sm:text-xs text-gray-400 mt-1">Left-footed bullet into bottom corner from De Bruyne assist.</p>
                         </div>
                     </div>
-                    <div class="flex items-start space-x-3.5 p-4 bg-pl-card/90 rounded-2xl border border-pl-border hover:border-amber-500/40 transition shadow-md">
-                        <span class="bg-amber-500/20 text-amber-400 font-black px-3 py-1 rounded-xl text-xs">65'</span>
+                    <div class="flex items-start space-x-3 p-3.5 bg-pl-card/90 rounded-2xl border border-pl-border hover:border-amber-500/40 transition shadow-md">
+                        <span class="bg-amber-500/20 text-amber-400 font-black px-2.5 py-1 rounded-xl text-xs">65'</span>
                         <div>
-                            <strong class="text-white tracking-wide text-sm">Yellow Card: Arsenal (Declan Rice)</strong>
-                            <p class="text-xs text-gray-400 mt-1">Tactical foul stopping Rodri counter-attack.</p>
+                            <strong class="text-white tracking-wide text-xs sm:text-sm">Yellow Card: Arsenal (Declan Rice)</strong>
+                            <p class="text-[11px] sm:text-xs text-gray-400 mt-1">Tactical foul stopping Rodri counter-attack.</p>
                         </div>
                     </div>
-                    <div class="flex items-start space-x-3.5 p-4 bg-pl-card/90 rounded-2xl border border-pl-border hover:border-pl-cyan/40 transition shadow-md">
-                        <span class="bg-pl-cyan/20 text-pl-cyan font-black px-3 py-1 rounded-xl text-xs">58'</span>
+                    <div class="flex items-start space-x-3 p-3.5 bg-pl-card/90 rounded-2xl border border-pl-border hover:border-pl-cyan/40 transition shadow-md">
+                        <span class="bg-pl-cyan/20 text-pl-cyan font-black px-2.5 py-1 rounded-xl text-xs">58'</span>
                         <div>
-                            <strong class="text-white tracking-wide text-sm">Goal! Arsenal (Bukayo Saka)</strong>
-                            <p class="text-xs text-gray-400 mt-1">Curling effort from edge of box following high press turnover.</p>
+                            <strong class="text-white tracking-wide text-xs sm:text-sm">Goal! Arsenal (Bukayo Saka)</strong>
+                            <p class="text-[11px] sm:text-xs text-gray-400 mt-1">Curling effort from edge of box following high press.</p>
                         </div>
                     </div>
                 </div>
@@ -249,51 +239,51 @@
         </div>
 
         <!-- RIGHT COLUMN: AI Tactical Copilot & Recaps (5 Cols) -->
-        <div class="lg:col-span-5 space-y-8">
+        <div class="lg:col-span-5 space-y-6 lg:space-y-8">
 
             <!-- AI Tactical Copilot Card -->
-            <div class="glass-panel-glow rounded-3xl p-6 relative">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-base font-bold flex items-center space-x-2">
-                        <i data-lucide="cpu" class="w-5 h-5 text-pl-cyan"></i>
+            <div class="glass-panel-glow rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                    <h2 class="text-sm sm:text-base font-bold flex items-center space-x-2">
+                        <i data-lucide="cpu" class="w-4 h-4 sm:w-5 sm:h-5 text-pl-cyan"></i>
                         <span>AI Tactical Copilot</span>
                     </h2>
-                    <button onclick="loadTacticalAnalysis()" id="tacticsBtn" class="bg-pl-cyan hover:bg-pl-cyanHover text-black font-black px-4 py-2.5 rounded-xl text-xs transition flex items-center space-x-1.5 shadow-xl shadow-pl-cyan/20 cursor-pointer">
-                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    <button onclick="loadTacticalAnalysis()" id="tacticsBtn" class="bg-pl-cyan hover:bg-pl-cyanHover text-black font-black px-3.5 py-2 rounded-xl text-xs transition flex items-center space-x-1.5 shadow-xl shadow-pl-cyan/20 cursor-pointer w-full sm:w-auto justify-center">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
                         <span>Analyze Tactics</span>
                     </button>
                 </div>
-                <div id="tacticsOutput" class="text-sm text-gray-300 space-y-3.5 leading-relaxed bg-pl-dark/95 p-5 rounded-2xl border border-pl-border shadow-inner custom-scrollbar max-h-[420px] overflow-y-auto">
+                <div id="tacticsOutput" class="text-xs sm:text-sm text-gray-300 space-y-3 leading-relaxed bg-pl-dark/95 p-4 sm:p-5 rounded-2xl border border-pl-border shadow-inner custom-scrollbar max-h-96 overflow-y-auto">
                     <p class="text-gray-400 italic">Click "Analyze Tactics" to invoke the AI tactical agent powered by Advanced AI & OmniRoute...</p>
                 </div>
             </div>
 
             <!-- Automated Match Story & Highlights -->
-            <div class="glass-panel rounded-3xl p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-base font-bold flex items-center space-x-2">
-                        <i data-lucide="file-text" class="w-5 h-5 text-pl-pink"></i>
+            <div class="glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                    <h2 class="text-sm sm:text-base font-bold flex items-center space-x-2">
+                        <i data-lucide="file-text" class="w-4 h-4 sm:w-5 sm:h-5 text-pl-pink"></i>
                         <span>Automated Match Story</span>
                     </h2>
-                    <button onclick="loadMatchRecap()" id="recapBtn" class="bg-pl-pink hover:bg-pink-600 text-white font-black px-4 py-2.5 rounded-xl text-xs transition flex items-center space-x-1.5 shadow-xl shadow-pl-pink/20 cursor-pointer">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <button onclick="loadMatchRecap()" id="recapBtn" class="bg-pl-pink hover:bg-pink-600 text-white font-black px-3.5 py-2 rounded-xl text-xs transition flex items-center space-x-1.5 shadow-xl shadow-pl-pink/20 cursor-pointer w-full sm:w-auto justify-center">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
                         <span>Generate Recap</span>
                     </button>
                 </div>
-                <div id="recapOutput" class="text-sm text-gray-300 space-y-3.5 leading-relaxed bg-pl-dark/95 p-5 rounded-2xl border border-pl-border shadow-inner custom-scrollbar max-h-[420px] overflow-y-auto">
+                <div id="recapOutput" class="text-xs sm:text-sm text-gray-300 space-y-3 leading-relaxed bg-pl-dark/95 p-4 sm:p-5 rounded-2xl border border-pl-border shadow-inner custom-scrollbar max-h-96 overflow-y-auto">
                     <p class="text-gray-400 italic">Click "Generate Recap" to produce an automated professional sports journalism report...</p>
                 </div>
             </div>
 
             <!-- Interactive Fan Copilot QA -->
-            <div class="glass-panel rounded-3xl p-6">
-                <h3 class="text-base font-bold mb-3.5 flex items-center space-x-2">
+            <div class="glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+                <h3 class="text-sm sm:text-base font-bold mb-3.5 flex items-center space-x-2">
                     <i data-lucide="message-square" class="w-4 h-4 text-pl-cyan"></i>
                     <span>Ask Fan & Broadcaster Copilot</span>
                 </h3>
-                <div class="space-y-4">
-                    <input type="text" id="fanQuery" placeholder="e.g., Why is Arsenal's mid-block succeeding against De Bruyne?" class="w-full bg-pl-dark border border-pl-border rounded-2xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-pl-cyan transition shadow-inner">
-                    <button onclick="askFanCopilot()" class="w-full bg-gradient-to-r from-pl-cyan via-emerald-400 to-pl-accent hover:opacity-95 text-black font-black py-3.5 rounded-2xl text-sm transition shadow-xl shadow-pl-cyan/20 cursor-pointer">
+                <div class="space-y-3.5">
+                    <input type="text" id="fanQuery" placeholder="e.g., Why is Arsenal's mid-block succeeding?" class="w-full bg-pl-dark border border-pl-border rounded-2xl px-4 py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-pl-cyan transition shadow-inner">
+                    <button onclick="askFanCopilot()" class="w-full bg-gradient-to-r from-pl-cyan via-emerald-400 to-pl-accent hover:opacity-95 text-black font-black py-3 rounded-2xl text-xs sm:text-sm transition shadow-xl shadow-pl-cyan/20 cursor-pointer">
                         Ask AI Copilot
                     </button>
                     <div id="fanAnswer" class="text-xs text-gray-300 bg-pl-dark/95 p-4 rounded-2xl border border-pl-border hidden shadow-inner leading-relaxed"></div>
@@ -305,7 +295,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-pl-purpleDark/90 border-t border-pl-border py-6 text-center text-xs text-gray-400 backdrop-blur-2xl">
+    <footer class="bg-pl-purpleDark/90 border-t border-pl-border py-5 px-4 text-center text-xs text-gray-400 backdrop-blur-2xl">
         <p>PitchPulse AI • Premier League Real-Time Match Intelligence & Tactical Analytics Dashboard</p>
     </footer>
 
@@ -326,6 +316,16 @@
                 document.getElementById('awayPossBar').style.width = data.stats.possession.away + '%';
                 document.getElementById('homeXg').innerText = data.stats.xG.home;
                 document.getElementById('awayXg').innerText = data.stats.xG.away;
+                if(data.match) {
+                    const parts = data.match.split('vs');
+                    if(parts.length === 2) {
+                        document.querySelector('.col-span-3.text-left div.text-white').innerText = parts[0].trim();
+                        document.querySelector('.col-span-3.text-right div.text-white').innerText = parts[1].trim();
+                    }
+                }
+                if(data.venue) {
+                    document.getElementById('venueName').querySelector('span').innerText = data.venue;
+                }
             } catch (e) {
                 console.error("Status fetch error", e);
             }
@@ -335,7 +335,7 @@
             const btn = document.getElementById('tacticsBtn');
             const output = document.getElementById('tacticsOutput');
             const lang = document.getElementById('langSelect').value;
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Analyzing...</span>`;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Analyzing...</span>`;
             lucide.createIcons();
 
             try {
@@ -349,7 +349,7 @@
             } catch (e) {
                 output.innerText = "Error connecting to AI tactical agent.";
             } finally {
-                btn.innerHTML = `<i data-lucide="refresh-cw" class="w-4 h-4"></i><span>Analyze Tactics</span>`;
+                btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i><span>Analyze Tactics</span>`;
                 lucide.createIcons();
             }
         }
@@ -358,7 +358,7 @@
             const btn = document.getElementById('recapBtn');
             const output = document.getElementById('recapOutput');
             const lang = document.getElementById('langSelect').value;
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Generating...</span>`;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Generating...</span>`;
             lucide.createIcons();
 
             try {
@@ -372,7 +372,7 @@
             } catch (e) {
                 output.innerText = "Error generating recap.";
             } finally {
-                btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Generate Recap</span>`;
+                btn.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i><span>Generate Recap</span>`;
                 lucide.createIcons();
             }
         }
