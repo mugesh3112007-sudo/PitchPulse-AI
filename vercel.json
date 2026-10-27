@@ -4,7 +4,6 @@
     { "src": "server.py", "use": "@vercel/python" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "server.py" },
-    { "src": "/(.*)", "dest": "index.html" }
+    { "src": "/(.*)", "dest": "server.py" }
   ]
 }
